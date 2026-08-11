@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-
+from django.contrib.auth.decorators import login_required
+from .models import Notification
 # Create your views here.
-def users_profile(request):
-    temp = loader.get_template("list.html")
-    return HttpResponse(temp.render())
+
+@login_required
+def notification_list(request):
+    notify = Notification.objects.filter(user=request.user)
+    return render(request, "list.html", {"notifications":notify})
+    

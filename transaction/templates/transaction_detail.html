@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Інформація про транзакцію</h1>
+<h1>Transaction details</h1>
 
-<p>ID транзакції: {{ id }}</p>
+<h3>{{transaction.amount}}</h3>
+<p>{{transaction.category}}</p>
+<p>{{transaction.date}}</p>
+<p>{{transaction.description}}</p>
+<p>Залишилось для цієї категорії: {{remaining}}</p>
+
+<a href="{% url 'transactions:detail' %}">Back to all transactions</a>
 {% endblock %}

@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>
-    Підтвердження електронної пошти
-</h1>
+<h1>Email veryfication</h1>
 
 
 {% if verified %}
-
     <p>
-        Ваш email успішно підтверджено!
+        Email has been sucsessfuly verifyed
     </p>
 
 
-    <a href="/">
-        Перейти до сайту
+    <a href=" {% url 'users:login' %}">
+        Login
     </a>
 
 
 {% else %}
 
     <p>
-        Не вдалося підтвердити email.
+        Link invalid or outdated. Try again
     </p>
 
+    <a href="{% url 'users:register' %}">
+        Sign up
+    </a>
 
 {% endif %}
 

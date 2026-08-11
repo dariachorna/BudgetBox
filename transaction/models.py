@@ -10,6 +10,13 @@ class Category(models.Model):
     def __str__(self):
         return f"category {self.cat_name}"
 
+class MCCCode(models.Model):
+    mcc_code = models.IntegerField(unique=True)
+    category_code = models.ForeignKey(Category, on_delete=CASCADE)
+    
+    def __str__(self):
+        return f"{self.category_code} mcc code - {self.mcc_code}"
+
 class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= CASCADE)
     category = models.ForeignKey(Category, on_delete=PROTECT)

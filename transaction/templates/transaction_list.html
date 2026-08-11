@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Всі транзакції</h1>
+<h1>All transactions</h1>
 
-<p>Тут буде список усіх транзакцій.</p>
+<ul>
+    {% for transaction in transactions %}
+    <li>
+        <a href="{% url 'transactions:detail' tr_id=id %}">
+            {{ transaction.amount }}UAH
+            {{ transaction.category }}
+            {{ transaction.description|truncatewords:5 }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

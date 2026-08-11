@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Banking detail</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
     <h1>Banking account</h1>
 
-    <p>Тут буде інформація про акаунт.</p>
-    <p>ID: {{ id }}</p>
-</body>
-</html>
+    {% if connection %}
+    <p>{{connection.account_id}}</p>
+    <p>{{connection.created_at|date:"d.m.Y H:i"}}</p>
+    <a href="{% url 'banking:disconnection' %}"> Disconnect banking account</a>
+    {% else %}
+    <p>Banking account isn't connected</p>
+    <a href="{% url 'banking:synk' %}">Connect banking account</a>
+    {% endif %}
+
+{% endblock %}

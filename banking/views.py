@@ -1,19 +1,31 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template import loader
+from .models import BankConnection
+from django.contrib.auth.decorators import login_required
+from .forms import BankConnectForm
 
-def banking_list (request):
-    temp = loader.get_template("banking_list.html")
-    return HttpResponse(temp.render())
-
+@login_required
 def banking_detail (request):
-    temp = loader.get_template("banking_detail.html")
-    return HttpResponse(temp.render())
+    connection = BankConnection.objects.filter(user=request.user).first()
+    return render(request, "banking/banking_detail.html", {"connection": connection})
 
+@login_required
 def synkhronisation (request):
-    temp = loader.get_template("synkhronisation.html")
-    return HttpResponse(temp.render())
+    if request.method == "POST":
+        form=BankConnection(request.POST)
+        if form.is_valid():
+            token_value=form.cleaned_data['token']
+            BankConnection.objects.create(user=request.user, token=token_value, name="/")
+            return redirect("banking:banking_id")
+    else:
+        form = BankConnectForm()
+    return render(request, "banking/synkhronisation.html", {"form":form})
 
-def disconnect_account (request):
-    temp = loader.get_template("disconnect_account.html")
-    return HttpResponse(temp.render())
+@login_required
+def disconnect_account (request, bk_id):
+    connection = BankConnectForm.objects.get(id=bk_id)
+    if request.method == "POST":
+        connection.delete()
+        return redirect("users/register")
+    return render(request, "banking/disconnect_account.html", {"disconnection": connection})

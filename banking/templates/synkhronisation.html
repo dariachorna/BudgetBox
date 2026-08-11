@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Synchronisation</h1>
+    <h1>Synchronize bank account</h1>
 
-    <p>Тут буде синхронізація банківського акаунта.</p>
+    <p>Щоб підключити рахунок, перейдіть на
+        <a href="https://api.monobank.ua/" target="_blank">api.monobank.ua</a>, увійдіть, відсканувавши QR-код у застосунку Monobank на телефоні, і скопіюйте свій особистий токен. Вставте його в поле нижче.
+    </p>
+    <p>
+    <strong>Увага:</strong> нікому не передавайте цей токен — він дає доступ до перегляду ваших банківських операцій.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit">
+            Synchronize
+        </button>
+    </form>
     
 {% endblock %}

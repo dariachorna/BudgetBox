@@ -2,6 +2,15 @@
 {% block content %}
     <h1>Disconnect account</h1>
 
-    <p>Тут буде відключення банківського акаунта.</p>
+    <p>Are you sure you want to disconnect your bank account?</p>
+    <form method="submit">
+        {% csrf_token %}
+        <button type="post">
+            Disconnect
+        </button>
+    </form>
+
+    
+    <a href="{% url 'banking:banking_id' %}">Back</a>
     
 {% endblock %}

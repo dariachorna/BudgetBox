@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import BankConnection, BankAccount
+from .models import BankConnection
 # Register your models here.
 admin.site.register(BankConnection)
-admin.site.register(BankAccount)

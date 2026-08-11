@@ -1,8 +1,19 @@
 {% extends "base.html" %}
-
-{% block title %}Головна — BudgetBox{% endblock %}
-
 {% block content %}
-<h1>Вітаємо, {{ request.user.username }}!</h1>
-<p>Це головна сторінка вашого фінансового трекера.</p>
+<h1>BudgetBox</h1>
+<h2>Main page</h2>
+<h3>Hi, {{ request.user.username }}!</h3>
+{% for budget in budgets %}
+<p>{{ buget.category }}:</p>
+<p>{{ buget.spent }} spent from {{ budget.limit_amount }}</p>
+<p>Money left: {{ budget.money_left }}</p>
+
+<a href="{% url 'budgets:edit_budget' bg_id=budget.id %}">Edit budget on this category</a>
+<a href="{% url 'budgets:delete_budget' bg_id=budget.id %}">Delate this budget</a>
+{% endfor %}
+<a href="{% url 'users:user' %}">Profile</a>
+<a href="{% url 'transactions:list' %}">Transactions</a>
+<a href="{% url 'budgets:budget' %}">Budget</a>
+<a href="{% url 'banking:banking_id' %}">Banking</a>
+<a href="{% url 'notifications:list' %}">All notifications</a>
 {% endblock %}

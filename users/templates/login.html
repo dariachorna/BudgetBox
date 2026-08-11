@@ -1,5 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Увійти</button>
 </form>
+
+<p><a href="{% url 'users:reset_password' %}">Забули пароль?</a></p>
+<p>Немає акаунта? <a href="{% url 'users:register' %}">Зареєструватися</a></p>
+
+{% endblock %}
