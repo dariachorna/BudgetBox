@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BudgetBox</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BudgetBox{% endblock %}</title>
 </head>
 <body>
     <nav>
-        <a href="{% url 'dashboard:home' %}">Dashboard</a>
+        <a href="{% url 'dashboard:user' %}">Dashboard</a>
         <a href="{% url 'transaction:list' %}">Транзакції</a>
         <a href="{% url 'banking:banking' %}">Банкінг</a>
         <a href="{% url 'budgets:list' %}">Бюджети</a>

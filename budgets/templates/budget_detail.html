@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Budget details</h1>
+
+<h3>{{budget.category}}</h3>
+<p>{{budget.limit_amount}} UAN</p>
+<p>For {{budget.month}}</p>
+
+<a href="{% url 'budgets:edit_budget' bg_id=budget.id %}">Chenge the budget</a>
+<a href="{% url 'budgets:delete_budget' bg_id=budget.id %}">Delete the budget</a>
+
+<a href="{% url 'budgets:buget' %}">Back to budgets</a>
+
+{% endblock %}

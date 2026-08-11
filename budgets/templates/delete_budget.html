@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete budget</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the budget?</p>
+
+    <button type="submit">
+    Submit
+    </button>
+</form>
+
+<a href="{% url 'budgets:budget_detail' bg_id=budget.id %}">Back to detail</a>
+
+{% endblock %}

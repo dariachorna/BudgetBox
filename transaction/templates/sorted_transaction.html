@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Transactions by Month</title>
-</head>
-<body>
-
+{% extends "base.html" %}
+{% block content %}
 <h1>Транзакції за місяць</h1>
 
 <p>Рік: {{ year }}</p>
 <p>Місяць: {{ month }}</p>
 
-</body>
-</html>
+{% endblock %}

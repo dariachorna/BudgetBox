@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Budgets</h1>
+
+<ul>
+{% for one_budget in budgets %}
+    <li>
+        <a href="{% url 'budgets:budget_detail' bg_id=one_budget.id %}">
+            {{ one_buget.category }} — {{ one_budget.limit_amount }} UAN
+        </a>
+    </li>
+{% empty %}
+    <li>There is no budgets yet</li>
+{% endfor %}
+</ul>
+{% endblock %}
