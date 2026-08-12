@@ -6,7 +6,7 @@
 <ul>
     {% for transaction in transactions %}
     <li>
-        <a href="{% url 'transactions:detail' tr_id=id %}">
+        <a href="{% url 'transactions:detail' tr_id=transaction.id %}">
             {{ transaction.amount }}UAH
             {{ transaction.category }}
             {{ transaction.description|truncatewords:5 }}

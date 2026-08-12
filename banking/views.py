@@ -13,7 +13,7 @@ def banking_detail (request):
 @login_required
 def synkhronisation (request):
     if request.method == "POST":
-        form=BankConnection(request.POST)
+        form=BankConnectForm(request.POST)
         if form.is_valid():
             token_value=form.cleaned_data['token']
             BankConnection.objects.create(user=request.user, token=token_value, name="/")
@@ -23,8 +23,8 @@ def synkhronisation (request):
     return render(request, "banking/synkhronisation.html", {"form":form})
 
 @login_required
-def disconnect_account (request, bk_id):
-    connection = BankConnectForm.objects.get(id=bk_id)
+def disconnect_account (request):
+    connection = BankConnectForm.objects.get(id=id)
     if request.method == "POST":
         connection.delete()
         return redirect("users/register")
