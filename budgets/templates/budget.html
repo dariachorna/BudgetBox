@@ -7,8 +7,11 @@
 {% for one_budget in budgets %}
     <li>
         <a href="{% url 'budgets:budget_detail' bg_id=one_budget.id %}">
-            {{ one_buget.category }} — {{ one_budget.limit_amount }} UAN
+            {{ one_buget.category }} — {{ one_budget.spent }} / {{ one_budget.limit_amount }} UAH
         </a>
+        {% if one_budget.status == 'over' %}<span style="color: red">Limit exceeded</span>
+        {% elif one_budget.status == 'warning' %}<span style="color: orange">The limit will end soon</span>
+        {%.endif %}
     </li>
 {% empty %}
     <li>There is no budgets yet</li>

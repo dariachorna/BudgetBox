@@ -6,8 +6,10 @@
 <ul>
 {% for n in notifications %}
     <li>{{ n }}</li>
+    <a href="{% url 'budgets:budget_detail' bg_id=n.budget.id %}">View category</a>
 {% empty %}
     <li>No notifications yet</li>
 {% endfor %}
 </ul>
+<a href="{% url 'budgets:budget' %}">Back</a>
 {% endblock %}

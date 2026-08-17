@@ -1,16 +1,14 @@
 
-from datetime import timezone
-
+from django.utils import timezone
 from django.http import HttpResponse
 import requests
 import json
 from django.shortcuts import redirect, render
-from django.template import loader
-
 from transaction.models import Category, MCCCode, Transaction
 from .models import BankConnection
 from django.contrib.auth.decorators import login_required
 from .forms import BankConnectForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -32,6 +30,7 @@ def synkhronisation (request):
                 account_id=acc_id,
                 name = "Monobank"
             )
+            requests.post( "https://api.monobank.ua/personal/webhook", headers={"X-Token": token}, json={"webHookUrl": "https://placeholder.com/banking/webhook/"})
             return redirect("banking:banking_id")
         else:
             form = BankConnectForm(request.POST)
@@ -52,6 +51,7 @@ def disconnect_account (request):
         return redirect("banking:banking_id")
     return render(request, "banking/disconnect_account.html", {"disconnection": connection})
 
+@csrf_exempt
 def mono_webhook (request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -70,7 +70,7 @@ def mono_webhook (request):
         else:
             category = Category.objects.get_or_create(cat_name="Інше")[0]
 
-        transaction = Transaction.objects.create(user = connection.user, category = category, amount= amount, description = desc, date=timezone.now() )
+        Transaction.objects.create(user = connection.user, category = category, amount= amount, description = desc, date=timezone.now() )
 
         return HttpResponse(status=200)
     
